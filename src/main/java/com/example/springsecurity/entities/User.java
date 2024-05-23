@@ -1,7 +1,6 @@
 package com.example.springsecurity.entities;
 
 import jakarta.persistence.*;
-
 import java.util.Set;
 import java.util.UUID;
 
@@ -10,20 +9,22 @@ import java.util.UUID;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) //Gera o ID do usuario automatico
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
     private UUID userID;
-    @Column(unique = true)
+
+    @Column(unique = true, nullable = false)
     private String username;
-    private String  password;
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+
+    @Column(nullable = false)
+    private String password;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "tb_users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
-
     )
-
     private Set<Role> roles;
 
     public UUID getUserID() {

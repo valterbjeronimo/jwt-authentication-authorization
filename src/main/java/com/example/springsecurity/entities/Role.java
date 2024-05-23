@@ -1,8 +1,6 @@
 package com.example.springsecurity.entities;
 
 import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
-import org.springframework.web.service.annotation.GetExchange;
 
 @Entity
 @Table(name="tb_roles")
@@ -12,6 +10,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Long roleID;
+
+    @Column(nullable = false)
     private String name;
 
     public Long getRoleID() {
@@ -30,20 +30,18 @@ public class Role {
         this.name = name;
     }
 
-    public enum Values{
+    public enum Values {
         BASIC(1L),
         ADMIN(2L);
 
-
+        private final Long roleId;
 
         Values(Long roleId) {
-           this.RoleId=roleId;
+            this.roleId = roleId;
         }
 
         public Long getRoleId() {
-            return RoleId;
+            return roleId;
         }
-
-        Long RoleId;
     }
 }

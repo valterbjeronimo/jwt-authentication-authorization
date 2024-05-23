@@ -13,10 +13,13 @@ public class Tweet {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "tweet_id")
     private Long tweetId;
+
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private String user;
-    private String  content;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user; // Corrigido para referenciar a entidade User
+
+    private String content;
+
     @CreationTimestamp
     private Instant creationTimestamp;
 
@@ -28,11 +31,11 @@ public class Tweet {
         this.tweetId = tweetId;
     }
 
-    public String getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(String user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

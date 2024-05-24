@@ -1,6 +1,9 @@
 package com.example.springsecurity.entities;
 
+import com.example.springsecurity.dto.LoginRequest;
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.Set;
 import java.util.UUID;
 
@@ -57,5 +60,9 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isLoginCorrect(LoginRequest loginRequest, PasswordEncoder passwordEncoder) {
+        return passwordEncoder.matches(loginRequest.password(),this.password);
     }
 }
